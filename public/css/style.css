@@ -1,0 +1,159 @@
+body {
+    font-family: "Plus Jakarta Sans", sans-serif !important;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.container {
+    flex: 1;
+}
+
+.navbar {
+    height: 5rem;
+    background-color: white;
+}
+
+.fa-compass {
+    color: #fe424d;
+    font-size: 2rem;
+}
+
+.nav-link {
+    color: #222222 !important;  /*!important is used to override bootstrap styling by our custom styling*/
+}
+
+/*Footer*/
+
+.f-info-links a {
+    text-decoration: none;
+    color: #222222;
+}
+
+.f-info-links a:hover {
+    text-decoration:underline;
+}
+
+.f-info-links, .f-info-socials, .f-info-brand {
+    width:100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+ 
+
+.f-info-socials i {
+    font-size: 1.2rem;
+    margin-right: 1rem;
+}
+
+.f-info {
+    text-align: center;
+    height: 8rem;
+    background-color: #ebebeb;
+    display: flex;  
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: space-evenly; 
+}
+
+/*Cards*/
+
+.listing-card {
+    border: none !important;
+    margin-bottom: 2rem;
+}
+
+.card-img-top {
+    border-radius: 1rem !important;
+    width:100% !important;
+    object-fit: cover !important;
+}
+
+.card-body {
+    padding: 0 !important;
+}
+
+.card-text p {
+    font-weight: 400 !important;
+}
+
+.listing-link {
+    text-decoration: none;
+}
+
+/*card effect*/
+.card-img-overlay {
+    opacity: 0;
+}
+
+.card-img-overlay:hover{
+    opacity: 0.2;
+    background-color: white;
+
+}
+
+/*Styling for new page */
+.add-btn {
+    background-color: #fe424d !important;
+    border:none !important;
+}
+
+/* Edit Page */
+.edit-btn {
+    background-color: #fe424d !important;
+    border:none !important;
+}
+
+/*Show page*/
+.show-img {
+    height: 30vh;
+}
+
+.btns {
+    display: flex;
+}
+
+.show-card {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+/*Map*/
+#map {
+    height: 400px;
+    width: 100%;
+    border-radius: 8px;
+}
+
+.maplibregl-popup-content {
+  padding: 0;
+  border-radius: 14px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.popup-card {
+  padding: 12px 14px;
+  min-width: 220px;
+}
+
+/* Line 1: Title (bold) */
+.popup-title {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+/* Line 2: Para (normal text) */
+.popup-para {
+  font-size: 12px;
+  color: #717171;
+  margin-bottom: 4px;
+}
+
+/* Line 3: Location (normal text) */
+.popup-location {
+  font-size: 12px;
+  color: #717171;
+}
