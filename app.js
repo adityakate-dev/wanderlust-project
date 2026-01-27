@@ -123,6 +123,16 @@ app.use("/", userRouter);
 //     res.send("successful testing");
 // })
 
+// Root route
+app.get("/", (req, res) => {
+    // Option 1: redirect to listings page
+    res.redirect("/listings");
+
+    // Option 2: render a homepage if you have a view
+    // res.render("home"); 
+});
+
+
 app.use((req, res, next) => {
     next(new ExpressError(404, "Page Not Found"));
 });
