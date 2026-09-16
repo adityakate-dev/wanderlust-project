@@ -1,0 +1,7 @@
+<% layout("/layouts/boilerplate") %>
+<div class="row mt-4"><div class="col-md-8 offset-md-2">
+  <div class="d-flex justify-content-between align-items-center mb-3"><h2>My wishlists</h2><a href="/profile" class="btn btn-outline-dark">My profile</a></div>
+  <form action="/wishlists" method="POST" class="card card-body mb-4"><h5>Create a wishlist</h5><div class="row g-2"><div class="col-md-5"><input class="form-control" name="name" maxlength="60" placeholder="e.g. Goa getaway" required></div><div class="col-md-5"><input class="form-control" name="description" maxlength="200" placeholder="Optional description"></div><div class="col-md-2"><button class="btn btn-dark w-100">Create</button></div></div></form>
+  <% if(!wishlists.length) { %><p class="text-muted">Create a wishlist from here, or save a listing while exploring.</p><% } %>
+  <div class="row row-cols-1 row-cols-md-2 g-3"><% wishlists.forEach((wishlist) => { %><div class="col"><div class="card h-100"><div class="card-body"><h4><%= wishlist.name %></h4><p class="text-muted"><%= wishlist.description || "No description" %></p><p><%= wishlist.listings.length %> saved listings</p><a class="btn btn-dark" href="/wishlists/<%= wishlist._id %>">View wishlist</a></div></div></div><% }) %></div>
+</div></div>

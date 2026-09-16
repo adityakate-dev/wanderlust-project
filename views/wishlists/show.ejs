@@ -1,0 +1,6 @@
+<% layout("/layouts/boilerplate") %>
+<div class="row mt-4"><div class="col-md-8 offset-md-2">
+  <div class="d-flex justify-content-between align-items-start mb-3"><div><h2><%= wishlist.name %></h2><p class="text-muted"><%= wishlist.description %></p></div><form action="/wishlists/<%= wishlist._id %>?_method=DELETE" method="POST"><button class="btn btn-outline-danger">Delete wishlist</button></form></div>
+  <% if(!wishlist.listings.length) { %><p class="text-muted">No saved listings yet. Explore and save one to this wishlist.</p><% } %>
+  <div class="row row-cols-1 row-cols-md-2 g-3"><% wishlist.listings.forEach((listing) => { %><div class="col"><div class="card h-100"><img src="<%= listing.image?.url || 'https://placehold.co/600x400/png?text=Listing' %>" class="card-img-top" alt="<%= listing.title %>" style="height:13rem;object-fit:cover"><div class="card-body"><h5><%= listing.title %></h5><p><%= listing.location %>, <%= listing.country %></p><a href="/listings/<%= listing._id %>" class="btn btn-dark btn-sm">View</a><form action="/wishlists/<%= wishlist._id %>/listings/<%= listing._id %>?_method=DELETE" method="POST" class="d-inline"><button class="btn btn-outline-danger btn-sm">Remove</button></form></div></div></div><% }) %></div>
+</div></div>

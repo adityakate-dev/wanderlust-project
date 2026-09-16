@@ -1,5 +1,6 @@
 const Listing = require("../models/listing");
 const axios = require("axios");
+const Wishlist = require("../models/wishlist");
 
 
 module.exports.index = async (req, res) => {
@@ -32,8 +33,12 @@ module.exports.showListing = async (req, res) => {
             coordinates: [77.2090, 28.6139]
         };
     }
+    const wishlists = req.user
+        ? await Wishlist.find({ owner: req.user._id }).select("name listings")
+        : [];
     res.render("listings/show", {
         listing,
+        wishlists,
         mapToken: process.env.MAPTILER_KEY,
         listingCoords: listing.geometry ? listing.geometry.coordinates : [77.2090, 28.6139] // fallback
     });

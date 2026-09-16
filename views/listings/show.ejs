@@ -9,7 +9,7 @@
         <img src="<%= listing.image && listing.image.url ? listing.image.url : 'https://placehold.co/600x400/png?text=Default+Image'%>" class="card-img-top show-img" alt="listing_image">
         <div class="card-body">
             <p class="card-text">Owned by 
-                <i><%= listing.owner.username %></i>
+                <i><a href="/users/<%= listing.owner._id %>"><%= listing.owner.username %></a></i>
             </p>
             <p class="card-text">
                 <%= listing.description %>
@@ -34,6 +34,30 @@
     
         <form method="POST" action="/listings/<%= listing._id %>?_method=DELETE">
         <button class="btn btn-dark offset-5">Delete</button>
+    </form>
+</div>
+<% } %>
+
+<% if(currUser) { %>
+<div class="col-6 offset-3 mb-4">
+    <h4>Save this listing</h4>
+    <% if(wishlists.length) { %>
+        <div class="d-flex flex-wrap gap-2">
+            <% wishlists.forEach((wishlist) => { %>
+                <% if(!wishlist.listings.some((savedId) => savedId.equals(listing._id))) { %>
+                    <form action="/wishlists/<%= wishlist._id %>/listings" method="POST">
+                        <input type="hidden" name="listingId" value="<%= listing._id %>">
+                        <button class="btn btn-outline-dark btn-sm"><i class="fa-regular fa-heart"></i> <%= wishlist.name %></button>
+                    </form>
+                <% } %>
+            <% }) %>
+        </div>
+    <% } %>
+    <form action="/wishlists" method="POST" class="row g-2 mt-1">
+        <input type="hidden" name="listingId" value="<%= listing._id %>">
+        <div class="col-md-5"><input class="form-control" name="name" maxlength="60" placeholder="New wishlist name" required></div>
+        <div class="col-md-5"><input class="form-control" name="description" maxlength="200" placeholder="Optional description"></div>
+        <div class="col-md-2"><button class="btn btn-dark w-100">Create</button></div>
     </form>
 </div>
 <% } %>
