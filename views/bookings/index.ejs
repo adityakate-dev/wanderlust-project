@@ -1,0 +1,14 @@
+<% layout("/layouts/boilerplate") %>
+<% const statusClass = { pending: "warning", confirmed: "success", declined: "secondary", cancelled: "dark" }; %>
+<div class="row mt-4"><div class="col-md-10 offset-md-1">
+    <h2 class="mb-3">My bookings</h2>
+    <% if(!guestBookings.length) { %><p class="text-muted">You have not sent any booking requests yet.</p><% } %>
+    <div class="row row-cols-1 row-cols-md-2 g-3 mb-5">
+        <% guestBookings.forEach((booking) => { %><div class="col"><div class="card h-100"><div class="card-body"><span class="badge text-bg-<%= statusClass[booking.status] %> float-end"><%= booking.status %></span><h5><%= booking.listing ? booking.listing.title : "Deleted listing" %></h5><p><%= booking.checkIn.toLocaleDateString() %> – <%= booking.checkOut.toLocaleDateString() %></p><p><%= booking.guests %> guests · ₹<%= booking.totalPrice.toLocaleString("en-IN") %></p><% if(booking.listing) { %><a class="btn btn-outline-dark btn-sm" href="/listings/<%= booking.listing._id %>">View listing</a><% } %><% if(["pending", "confirmed"].includes(booking.status)) { %><form class="d-inline" method="POST" action="/bookings/<%= booking._id %>/cancel?_method=PUT"><button class="btn btn-outline-danger btn-sm">Cancel</button></form><% } %></div></div></div><% }) %>
+    </div>
+    <h2 class="mb-3">Requests for my listings</h2>
+    <% if(!hostBookings.length) { %><p class="text-muted">You have no guest requests yet.</p><% } %>
+    <div class="row row-cols-1 row-cols-md-2 g-3">
+        <% hostBookings.forEach((booking) => { %><div class="col"><div class="card h-100"><div class="card-body"><span class="badge text-bg-<%= statusClass[booking.status] %> float-end"><%= booking.status %></span><h5><%= booking.listing.title %></h5><p>Guest: <%= booking.guest.username %></p><p><%= booking.checkIn.toLocaleDateString() %> – <%= booking.checkOut.toLocaleDateString() %></p><p><%= booking.guests %> guests · ₹<%= booking.totalPrice.toLocaleString("en-IN") %></p><% if(booking.status === "pending") { %><form class="d-inline" method="POST" action="/bookings/<%= booking._id %>/status?_method=PUT"><input type="hidden" name="status" value="confirmed"><button class="btn btn-success btn-sm">Confirm</button></form><form class="d-inline" method="POST" action="/bookings/<%= booking._id %>/status?_method=PUT"><input type="hidden" name="status" value="declined"><button class="btn btn-outline-danger btn-sm">Decline</button></form><% } %></div></div></div><% }) %>
+    </div>
+</div></div>

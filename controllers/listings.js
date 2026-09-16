@@ -1,6 +1,7 @@
 const Listing = require("../models/listing");
 const axios = require("axios");
 const Wishlist = require("../models/wishlist");
+const Booking = require("../models/booking");
 
 
 module.exports.index = async (req, res) => {
@@ -36,9 +37,14 @@ module.exports.showListing = async (req, res) => {
     const wishlists = req.user
         ? await Wishlist.find({ owner: req.user._id }).select("name listings")
         : [];
+    const unavailableBookings = await Booking.find({
+        listing: listing._id,
+        status: { $in: ["pending", "confirmed"] },
+    }).select("checkIn checkOut");
     res.render("listings/show", {
         listing,
         wishlists,
+        unavailableBookings,
         mapToken: process.env.MAPTILER_KEY,
         listingCoords: listing.geometry ? listing.geometry.coordinates : [77.2090, 28.6139] // fallback
     });
